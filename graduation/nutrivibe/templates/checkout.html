@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriVibe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<section id="header">  
+    <a href=""><img src="{% static 'img/logo-bl3rd-bg2.png' %}" class="logo" style="max-height: 50px;" alt=""></a>
+    <div>
+        <ul id="navbar">
+            <li><a href="/">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/#services">Services</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/user_choices"><i class="fa-solid fa-user"></i></a></li>
+            <li id="lg-bag"><a href="/user_cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            {% if user.is_authenticated %}
+                <p>Signed in as {{ user.username }}  &nbsp&nbsp</p>
+                <div class="login"> 
+                    <a href="/logout">Logout</a>
+                </div>
+            {% else %}
+            <div class="login"> 
+                <a href="/login">Login</a>
+            </div>
+            {% endif %}
+            <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+    </div>
+    <div id="mobile">
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+        <i id="bar" class="fa-solid fa-outdent"></i>
+    </div>
+</section>
+<div class="checkout-container">
+    <form action="{% url 'user_orders' %}" method="GET" onsubmit="alert('Order Placed Successfully'); return validateForm()">
+        <div class="row">
+            <div class="col">
+                <h3 class="checkout-title">Billing address</h3>
+                <div class="inputBox">
+                    <span>Full name: </span>
+                    <input type="text" id="fullName" placeholder="Bassant Mohamed">
+                </div>
+                <div class="inputBox">
+                    <span>Email: </span>
+                    <input type="email" id="email" placeholder="Bassant@Mohamed.com">
+                </div>
+                <div class="inputBox">
+                    <span>Address: </span>
+                    <input type="text" id="address" placeholder="Apartment-floor-street-city">
+                </div>
+                <div class="inputBox">
+                    <span>City: </span>
+                    <input type="text" id="city" placeholder="Giza">
+                </div>
+            </div>
+        </div>
+        <section>
+            <h3 class="checkout-title">Choose Payment method </h3>
+            <div id="paymentOptions">
+                <label for="cashOnDelivery">
+                    <input type="radio" id="cashOnDelivery" name="paymentMethod" value="cash" onclick="showInput(false)">
+                    Cash on Delivery
+                </label>
+                <label for="visa">
+                    <input type="radio" id="visa" name="paymentMethod" value="visa" onclick="showInput(true)">
+                    Visa
+                </label>
+            </div>
+            <div id="visaDetails" style="display: none;">
+                <label for="cardNumber">Card Number:</label>
+                <input type="text" id="cardNumber" name="cardNumber" placeholder="Enter card number" class="inputBox-vis">
+                <label for="expiryDate">Expiry Date:</label>
+                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YYYY" class="inputBox-vis"><br>
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" name="cvv" placeholder="Enter CVV" class="inputBox-vis">
+            </div>
+        </section>
+        <button type="submit" class="submit-btn">Proceed to checkout</button>
+    </form>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
+
+
+

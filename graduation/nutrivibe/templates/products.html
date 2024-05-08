@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriVibe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<section id="header">  
+    <a href=""><img src="{% static 'img/logo-bl3rd-bg2.png' %}" class="logo" style="max-height: 50px;" alt=""></a>
+    <div>
+        <ul id="navbar">
+            <li><a href="/">Home</a></li>
+            <li><a class="active" href="/products">Products</a></li>
+            <li><a href="/#services">Services</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/user_choices"><i class="fa-solid fa-user"></i></a></li>
+            <li id="lg-bag"><a href="/user_cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            {% if user.is_authenticated %}
+                <p>Signed in as {{ user.username }}  &nbsp&nbsp</p>
+                <div class="login"> 
+                    <a href="/logout">Logout</a>
+                </div>
+            {% else %}
+            <div class="login"> 
+                <a href="/login">Login</a>
+            </div>
+            {% endif %}
+            <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+    </div>
+    <div id="mobile">
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+        <i id="bar" class="fa-solid fa-outdent"></i>
+    </div>
+</section>
+
+<section id="product1" class="section-p1">
+    <div class="pro-container" id="product-container">
+        {% for product in products %}
+        <div class="pro">
+            <img src="{{ product.image_url }}" onclick="window.location.href='product?product_id={{ product.id }}';">
+            <div class="des">
+                <h5>{{ product.name }}</h5>
+                <span>{{ product.calories }} kcal</span>
+                <!-- You might want to calculate kcal here if it's not directly stored in the model -->
+                <div class="star">
+                    {% for _ in product.stars_range %}
+                    <i class="fas fa-star"></i>
+                    {% endfor %}
+                </div>     
+                <h4>L.E {{ product.price }}</h4>
+            </div>
+            <form method="post" action="{% url 'add_to_cart' %}" >
+                {% csrf_token %}
+                <input type="hidden" name="item_id" value="{{ product.id }}">
+                <input type="number" name="quantity" value="1" min="1" max="10"><br><br>
+                <button type="submit" >Add to Cart</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+    <script src="{% static 'js/script.js' %}"></script>
+
+ </body>

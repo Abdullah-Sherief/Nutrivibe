@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriVibe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<section id="header">  
+    <a href=""><img src="{% static 'img/logo-bl3rd-bg2.png' %}" class="logo" style="max-height: 50px;" alt=""></a>
+    <div>
+        <ul id="navbar">
+            <li><a  href="/">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a class="active" href="/#services">Services</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/user_choices"><i class="fa-solid fa-user"></i></a></li>
+            <li id="lg-bag"><a href="/user_cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            {% if user.is_authenticated %}
+                <p>Signed in as {{ user.username }}  &nbsp&nbsp</p>&nbsp</p>
+                <div class="login"> 
+                    <a href="/logout">Logout</a>
+                </div>
+            {% else %}
+            <div class="login"> 
+                <a href="/login">Login</a>
+            </div>
+            {% endif %}
+            <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+    </div>
+    <div id="mobile">
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+        <i id="bar" class="fa-solid fa-outdent"></i>
+    </div>
+</section>
+
+<section id="page-header">
+    <img src="{% static 'img/ex 1.png' %}" alt="Your Image" width="100%">
+
+
+<section class="Excercises">
+    <div class="container">
+        <h2>Yoga Videos</h2>
+        <div class="video-container">
+            {% for exercise in yoga %}
+            <div class="video">
+                <iframe src="{{ exercise.video_url }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Add similar block for Cardio Videos -->
+        <h2>Cardio Videos</h2>
+        <div class="video-container">
+            {% for exercise in cardio %}
+            <div class="video">
+                <iframe src="{{ exercise.video_url }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+</secttion>
+
+ 
+</section>
+
+
+
+
+
+<!---footer-->
+<footer class="section-p1" style="background: #DFF5E0;">
+    <div class="col">
+        <h4> About us</h4>
+        <p>Fuel your energy with a full range of healthy and <br>
+            yummy superfoods which are rich in high nutritional<br>
+            values, for you and everyone in your family, from<br>
+            athletes to children, who look for products from<br>
+            nature and a healthy lifestyle.</p>
+    </div>
+
+    <div class="col">
+        <h4>Contact us</h4>
+        <div class="icon" style="font-size: 16px;
+        color: #465b52;
+        margin: 15px 0 20px 0;"> 
+            <i class="fa-solid fa-location-dot"></i>  Cairo , Egypt
+            <br>
+            <br>
+            <i class="fa-solid fa-phone"></i> +1999
+        </div>
+    </div>
+
+    <div>
+        <h4>Payment Accept</h4>
+        &nbsp&nbsp
+        <img src="{% static 'img/visa.png' %}" width="170px" >
+    </div>
+
+    <div>
+        <h4>Stay Connected</h4>
+        &nbsp&nbsp
+        <a href=""><img src="{% static 'img/insta.png' %}" alt="instagram"></a>
+        <a href=""><img src="{% static 'img/facebook.png' %}" alt="Facebook"></a>
+    </div>
+    
+</footer>
+
+
+
+
+        <script src="{% static 'js/script.js' %}"></script>
+    </body>
+
+</html>
+
+
+
+
+
+
+

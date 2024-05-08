@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriVibe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<section id="header">  
+    <a href=""><img src="{% static 'img/logo-bl3rd-bg2.png' %}" class="logo" style="max-height: 50px;" alt=""></a>
+    <div>
+        <ul id="navbar">
+            <li><a  href="/">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/#services">Services</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a class="active" href="/user_choices"><i class="fa-solid fa-user"></i></a></li>
+            <li id="lg-bag"><a href="/user_cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            {% if user.is_authenticated %}
+                <p>Signed in as {{ user.username }}  &nbsp&nbsp</p>
+                <div class="login"> 
+                    <a href="/logout">Logout</a>
+                </div>
+            {% else %}
+            <div class="login"> 
+                <a href="/login">Login</a>
+            </div>
+            {% endif %}
+            <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+    </div>
+    <div id="mobile">
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+        <i id="bar" class="fa-solid fa-outdent"></i>
+    </div>
+</section>
+
+
+<section id="hist-order" class="section-p1">
+    <table width="100%">
+        {% for order in user_orders %}
+        <thead>
+            <tr>
+                <td>Order Date: {{ order.order_date }}</td>
+            </tr>
+        </thead>
+        <tbody onclick="window.location.href='order_details?order_id={{ order.id }}';">
+            
+            <tr>
+                <!-- <td><img src="https://cdn5.vectorstock.com/i/1000x1000/39/94/complete-order-icon-in-flat-style-for-any-projects-vector-35503994.jpg"></td> -->
+                <td><img style="cursor: pointer;" src="{{ order.items.first.image_url }}"></td>
+                <td>Total Amount: {{ order.total_amount }} $</td>
+                <td>Order Status: Successfull</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+</section>

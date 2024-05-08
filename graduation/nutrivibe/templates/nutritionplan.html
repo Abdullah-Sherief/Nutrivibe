@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriVibe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<section id="header">  
+    <a href=""><img src="{% static 'img/logo-bl3rd-bg2.png' %}" class="logo" style="max-height: 50px;" alt=""></a>
+    <div>
+        <ul id="navbar">
+            <li><a href="/">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a class="active" href="/#services">Services</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/user_choices"><i class="fa-solid fa-user"></i></a></li>
+            <li id="lg-bag"><a href="/user_cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            {% if user.is_authenticated %}
+                <p>Signed in as {{ user.username }}  &nbsp&nbsp</p>&nbsp</p>&nbsp</p>&nbsp</p>
+                <div class="login"> 
+                    <a href="/logout">Logout</a>
+                </div>
+            {% else %}
+            <div class="login"> 
+                <a href="/login">Login</a>
+            </div>
+            {% endif %}
+            <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+    </div>
+    <div id="mobile">
+        <a href="/user_cart"><i class="fa-solid fa-cart-shopping"></i></a>
+        <i id="bar" class="fa-solid fa-outdent"></i>
+    </div>
+</section>
+
+
+
+
+
+
+
+<div class="BMI">
+    <h2>Fill up your Details</h2>
+    <p> <b>Age</b></p>
+    <input type="number" min="1" id="age" placeholder="Enter Your age here" autocomplete="off" required>
+
+    <p> <b>Weight</b></p>
+    <input type="number" min="1" id="weight" placeholder="Enter Your weight in KGs here" required>
+      
+    <p> <b>Height</b></p>
+    <input type="number" min="1" id="height" placeholder="Enter You height in CMs here" required>
+
+    <p> <b>Activity Level</b></p>
+    <input type="number" min="1" max="5" id="activity" placeholder="Enter your activity Level from 1 to 5" required>
+
+    <div class="gender">
+
+      <label class="container">
+          <input type="radio" name="radio" id="m"><p>Male</p>
+          <span class="checkmark"></span>
+        </label>
+
+
+      <label class="container">
+          <input type="radio" name="radio" id="f" ><p>Female</p>
+            <span class="checkmark"></span>
+          </label>
+
+  </div>
+
+  <button class="btnn" style="color: white;" id="submit" onclick="countCalories();">Calculate Calories</button>
+</div>
+
+<div class="BMI2" >
+<div class="result">
+  <p>Needed Calories</p>
+  <div id="result">00.00</div>
+  <p class="comment"></p>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+<!-- Modal content -->
+<div class="modal-content">
+<span class="close">&times;</span>
+<p id="modalText"></p>
+</div></div>
+
+
+
+
+<script src="{% static 'js/planScript.js'%}"></script>
+<script src="script.js"></script>
+
+
+</body>
+
+</html>

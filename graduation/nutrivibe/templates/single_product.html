@@ -1,0 +1,101 @@
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriVibe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<section id="header">  
+    <a href=""><img src="{% static 'img/logo-bl3rd-bg2.png' %}" class="logo" style="max-height: 50px;" alt=""></a>
+    <div>
+        <ul id="navbar">
+            <li><a  href="/">Home</a></li>
+            <li><a class="active" href="/products">Products</a></li>
+            <li><a href="/#services">Services</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/user_choices"><i class="fa-solid fa-user"></i></a></li>
+            <li id="lg-bag"><a href="/user_cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            {% if user.is_authenticated %}
+                <p>Signed in as {{ user.username }}  &nbsp&nbsp</p>&nbsp</p>
+                <div class="login"> 
+                    <a href="/logout">Logout</a>
+                </div>
+            {% else %}
+            <div class="login"> 
+                <a href="/login">Login</a>
+            </div>
+            {% endif %}
+            <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+    </div>
+    <div id="mobile">
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+        <i id="bar" class="fa-solid fa-outdent"></i>
+    </div>
+</section>
+
+<section id="prodetails" class="section-p1"> 
+    <div class="single-pro-image">
+        <img src="{{ product.image_url }}" width="100%" id="MainImg">
+        {% comment %} <div class="small-img-group">
+            <div class="small-img-col">
+                <img src="{{ product.image_url }}" width="100%" class="small-img">
+            </div>
+        </div> {% endcomment %}
+    </div>
+    <div class="single-pro-details">
+        <h4><b>{{ product.name }}</b></h4>
+        <h3 style="color: green;">LE {{ product.price }}</h3>
+        <h6>{{ product.calories }} cal/100gm</h6>
+        <span >{{ product.description | safe }}</span>
+        <!-- Input field for quantity -->
+        <div>
+            <form method="post" action="{% url 'add_to_cart' %}">
+                {% csrf_token %}
+                <input type="hidden" name="item_id" value="{{ product.id }}">
+                <input type="number" name="quantity" value="1" min="1" max="10">
+                <button type="submit">Add to Cart</button>
+            </form>
+        </div>
+        <!-- Display category and tag names -->
+        <h5>Category: {{ product.category_name }}</h5>
+        <h5>Tag: {{ product.tag_name }}</h5>
+    </div>
+</section>
+
+
+
+
+    <script> 
+    /* hna bn3ml goz2 an lma ados 3la swr ale t7t product tzhr fo2 */
+      var MainImg = document.getElementById("MainImg");
+      var smallimg = document.getElementsByClassName("small-img");
+    /*hna y3ni ale ados 3l3h ytbdl b MainImg ale hya alkbera */
+      smallimg[0].onclick= function(){
+        MainImg.src = smallimg[0].src;
+      }
+      smallimg[1].onclick= function(){
+        MainImg.src = smallimg[1].src;
+      }
+      smallimg[2].onclick= function(){
+        MainImg.src = smallimg[2].src;
+      }
+    </script>
+
+        <script src="script.js"></script>
+    </body>
+
+</html>
+
+
+
+
+
+
+
